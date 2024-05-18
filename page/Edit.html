@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>写作</title>
+    <link rel="stylesheet" href="../store/css/style.css"/>
+    <link rel="stylesheet" href="../store/css/editormd.css"/>
+    <link rel="stylesheet" href="../store/css/edit.css">
+    <link rel="stylesheet" href="../store/css/elementui-index.css">
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+<div id="layout">
+    <el-container id="app">
+            <el-hearder class="content-header">
+                <el-form class="title" size="small" :model="title" label-width="110px">
+                    <el-row>
+                        <el-col>
+                            <el-form-item label="文章标题：">
+                                <el-input v-model="title.articleTitle" size="medium"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </el-form>
+            </el-hearder>
+            <el-main>
+                <div id="md"></div>
+            </el-main>
+           <el-footer class="content-footer">
+               <el-button type="primary" @click="isDialog = true">提交</el-button>
+           </el-footer>
+           <el-dialog class="articleTag" title="填写文章标签" style="width: 100%" :visible.sync="isDialog" align>
+                   <el-form :model="tag">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item label="文章类型:">
+                                    <el-select v-model="tag.articleType" size="medium">
+                                        <el-option v-for="item in articleTypes" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-form-item label="文章分类:" multiple>
+                                    <el-select v-model="tag.articleSort">
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                   </el-form>
+           </el-dialog>
+    </el-container>
+</div>
+<script src="../store/js/jquery.min.js"></script>
+<script src="../store/js/editormd.js"></script>
+<script src="../store/js/vue.js"></script>
+<script src="../store/js/elementui-index.js"></script>
+<script src="../store/js/cookies.js"></script>
+<script type="text/javascript">
+    //testEditor.getMarkdown();       // 获取 Markdown 源码
+    //testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
+    //testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
+    var editor;
+    new Vue({
+        el:"#app",
+        data:{
+            isDialog : false,
+            articleTypes:[
+                {
+                    value:"INTER_VIEW",
+                    label:"面试"
+                }
+            ],
+            title:{
+                articleTitle:'',//文章标题
+            },
+            tag:{
+                articleType:'',//文章类型
+                articleSort:'',//文章分类
+            },
+        },
+        methods:{
+           addArticle(){
+               $.get("",function (result){
+                   console.log(editor.getMarkdown())
+                   console.log(editor.getHTML())
+                   console.log(editor.getPreviewedHTML())
+               })
+           }
+        }
+    })
+    $(function () {
+        console.log(Cookies.get("easy-token") == undefined);
+        console.log(Cookies.get("easy-token"));
+        if(Cookies.get("easy-token") == undefined){
+            // window.location.href='Login.html';
+        }
+        $.get("../static/template.md", function (md) {
+            editor = editormd("md", {
+                width: "95%",
+                height: 640,
+                path: "../lib/",
+                appendMarkdown: md,
+                saveHTMLToTextarea: true
+            });
+        });
+    });
+</script>
+</body>
+</html>
+<style>
+    .content-header{
+        width: 93%;
+        margin: 0 auto;
+    }
+    .content-footer{
+        width: 95%;
+        margin: 0 auto;
+    }
+    .articleTag{
+        margin: 0 auto;
+    }
+</style>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="index">
+    <div class="net_div">
+        <div class="net_show_div" v-for="item in result" @click="requestNet(item)">
+            <div class="mask_layer"></div>
+            <img :src=item.icon>
+            <div class="net_url">
+                <a :href=item.url target='_BLANK' style="text-after-overflow:ellipsis;text-align: center">{{item.netName}}</a>
+            </div>
+        </div>
+        <div class="net_add_div" @click="addNet()"></div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../store/js/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var v = new Vue({
+        el: "#index",
+        data: {
+            result: [],// 常用网址集合
+        },
+        mounted() {
+            this.search();
+        },
+        methods: {
+            search() {
+                $.ajax({
+                        type: 'get',
+                        url: '../store/data/commonUse.json',
+                        dataType: 'json',
+                        success: function (result) {
+                            v.$data.result = result.result;
+                        },
+                        error: function (result) {
+                            console.log(result);
+                        }
+                    }
+                )
+            },
+            //访问常用网址
+            requestNet(params){
+                window.open(params.url);
+            },
+            //添加常用网址
+            addNet(){
+
+            }
+        }
+    })
+</script>
+<style>
+    .net_div{
+        width: 390px;
+        height: auto;
+    }
+    .net_show_div {
+        display: inline-block;
+        text-align: center;
+        width: 60px;
+        height: 55px;
+        border-radius: 10px;
+        padding-top: 5px;
+        padding-bottom: 2px;
+        margin-left: 10px;
+        background-color: rgba(10, 10, 10, 0.5);
+        cursor: pointer;
+    }
+    .mask_layer{
+        float: left;
+        position: absolute;
+        width: 60px;
+        height: 65px;
+        margin-top: -5px;
+        border-radius: 10px;
+        background-color: rgba(10, 10, 10, 0.2);
+    }
+    .mask_layer:hover{
+        background-color: rgba(80, 80, 80, 0.5);
+    }
+    .net_url {
+        margin: 0px auto;
+        width: 50px;
+        height: 25px;
+        overflow: hidden;
+        text-align: center;
+    }
+    .net_show_div img{
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        transform: scale(0.7);
+        transition: transform 0.4s ease 0s;
+    }
+    .net_show_div img:hover{
+        transform: scale(1);
+    }
+    .net_show_div a {
+        color: white;
+        text-decoration: none;
+        font-size: 10px;
+    }
+    /*
+    .net_add_div{
+        display: inline-block;
+        width: 60px;
+        height: 55px;
+        border: 1px solid #4b4b48;
+        border-radius: 10px;
+        cursor: pointer;
+        padding-top: 5px;
+        margin-left: 8px;
+        background: url("https://z3.ax1x.com/2021/06/23/RnRaM4.png") no-repeat center center rgba(10, 10, 10, 0.5);
+        background-size: 50px 50px;
+    }
+    */
+</style>

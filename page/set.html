@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="index">
+    <div id="set_div">
+        <div id="wallpaper_div">
+            <p>设置壁纸</p>
+            <span>风景</span>
+            <div class="image_div" v-for="item in wallpapers"  v-if="item.type == 'SCENERY'">
+                <img :src=item.url @click="changeWallpaper(item)">
+            </div>
+            <span>游戏</span>
+            <div class="image_div" v-for="item in wallpapers"  v-if="item.type == 'GAME'">
+                <img :src=item.url @click="changeWallpaper(item)">
+            </div>
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../store/js/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var v = new Vue({
+        el: "#index",
+        data: {
+            wallpapers: [],// 壁纸集合
+        },
+        mounted() {
+            this.search();
+        },
+        methods: {
+            search() {
+                $.ajax({
+                    type: 'get',
+                    url: '../store/data/setWallpaper.json',
+                    dataType: 'json',
+                    success: function (result) {
+                        v.$data.wallpapers = result.result;
+                    },
+                    error: function (result) {
+                        console.log(result);
+                    }
+                })
+            },
+            changeWallpaper(item){
+                parent.document.body.style.backgroundImage = "url("+item.url+")"
+            }
+        }
+    })
+</script>
+<style>
+    #set_div {
+        width: 390px;
+        height: auto;
+    }
+    #wallpaper_div p {
+        color: #efefef;
+        border-bottom: 1px solid #c2c2c2;
+        margin-left: 25px;
+        margin-right: 10px;
+        font-size: 13px;
+    }
+    #wallpaper_div span{
+        display: block;
+        color: #aca9a9;
+        margin-left: 25px;
+        font-size: 10px;
+    }
+    .image_div{
+        display: inline-block;
+        width: 100px;
+        height: 70px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 25px;
+        margin-top: 10px;
+        background-size: 150px 100px;
+        overflow: hidden;
+    }
+    .image_div img {
+        width: 100px;
+        height: 70px;
+        border-radius: 5px;
+        transform: scale(1);
+        transition: transform 0.5s ease 0s;
+    }
+    .image_div img:hover{
+        transform: scale(1.2);
+    }
+</style>

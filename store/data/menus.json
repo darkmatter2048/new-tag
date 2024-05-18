@@ -1,0 +1,16 @@
+{
+  "result":
+  [
+    {
+      "menuName":"常用网址",
+      "url": "commonUse.html",
+      "icon": "https://z3.ax1x.com/2021/06/22/RZOIk4.png"
+    },
+    
+    {
+      "menuName":"设置",
+      "url": "set.html",
+      "icon": "https://z3.ax1x.com/2021/06/22/ReErAs.png"
+    }
+  ]
+}

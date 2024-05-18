@@ -1,0 +1,50 @@
+{
+  "result": [
+    {
+      "netName": "知乎",
+      "url": "https://www.zhihu.com/",
+      "icon": "https://www.zhihu.com/favicon.ico"
+    },
+    {
+      "netName": "B站",
+      "url": "https://www.bilibili.com/",
+      "icon": "https://www.bilibili.com/favicon.ico"
+    },
+    {
+      "netName": "今日头条",
+      "url": "https://www.toutiao.com/",
+      "icon": "https://www.toutiao.com/favicon.ico"
+    },
+    {
+      "netName": "LeetCode",
+      "url": "https://leetcode-cn.com/",
+      "icon": " https://z3.ax1x.com/2021/06/24/RKJB5R.png"
+    },
+    {
+      "netName": "GitHub",
+      "url": "https://github.com/",
+      "icon": "https://z3.ax1x.com/2021/06/23/RuN6pt.png"
+    },
+    {
+      "netName": "码云",
+      "url": "https://gitee.com/",
+      "icon": "https://gitee.com/favicon.ico"
+    },
+    {
+      "netName": "QQ邮箱",
+      "url": "https://mail.qq.com/",
+      "icon": "https://mail.qq.com/favicon.ico"
+    },
+    {
+      "netName": "路过图床",
+      "url": "https://imgtu.com/",
+      "icon": "https://imgtu.com/content/images/system/favicon_1587118523486_91617a.png"
+    },
+    {
+      "netName": "阿里矢量图",
+      "url": "https://www.iconfont.cn/",
+      "icon": "https://img.alicdn.com/imgextra/i4/O1CN01EYTRnJ297D6vehehJ_!!6000000008020-55-tps-64-64.svg"
+    }
+
+  ]
+}

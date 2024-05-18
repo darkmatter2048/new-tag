@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>easy</title>
+</head>
+<link rel="stylesheet" href="../store/css/index.css">
+<body>
+<div id="index" @contextmenu.prevent="" @click.right ="showMenu" @keydown.ctrl.83.native="stopDefaultEvent">
+    <div class="mask_layer" @click.left="reset">
+        <div id="search_div">
+            <div id="time_div">
+                <span id="hours_span"></span>
+                <span id="second_span">:</span>
+                <span id="minute_span"></span>
+                <span id="week_span">{{this.$data.week}}</span>
+            </div>
+            <div class="search_input_div">
+                <li id="navigation_icon" style="list-style: none" @click="navigatorChange($event)" @mouseenter="showNavigator"></li>
+                <input id="search_input" type="text" v-model="kw" placeholder="搜索..."
+                       @input="requestBaidu(this.value)" @keyup.enter="requestBaiduByKw(this.value)" />
+                <li id="navigation_words"></li>
+            </div>
+
+            <div id="key_word_show">
+                <ul>
+                    <li v-for="item in kwResult" @click="requestBaiduByKw(item)" @mouseenter="enter($event)"
+                        @mouseleave="leave($event)">{{item.q}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div id="menu_div">
+        <div id="menu_title_div">
+            <span>{{menuNavigatorTitle}}</span>
+            <div id="close_div" @click="menuHidden"></div>
+            <div id="menu_navigation_div">
+                <button class="menu_navigation_btn" v-for="item in menus" @click="menuNavigatorChange(item,$event)"><img :src=item.icon></button>
+            </div>
+            <div id="menu_show_div">
+              <iframe id="menu_show_iframe" v-bind:src="menusFistPageSrc"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../store/js/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="../store/js/index.js"></script>
